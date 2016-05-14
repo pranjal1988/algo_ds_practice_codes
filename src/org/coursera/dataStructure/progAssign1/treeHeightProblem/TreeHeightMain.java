@@ -4,25 +4,25 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
+import java.util.PriorityQueue;
+import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 import org.coursera.dataStructure.progAssign1.CommonTestCaseFileReader;
 
 public class TreeHeightMain {
 	
 	TreeNode rootNode;
-
+	static String text;
+	
 	public static void main(String[] args) throws IOException {
 		InputStreamReader input_stream = new InputStreamReader(System.in);
 		BufferedReader reader = new BufferedReader(input_stream);
-		String text = reader.readLine();
+		text = reader.readLine();
 		TreeHeightMain th = new TreeHeightMain();
 		if(!text.equals("file")){
-			while((text=reader.readLine()) != null){
-				System.out.println();
-			}
+			th.readOneTestScenario(reader);
 			reader.close();
 			input_stream.close();
 		}else{
@@ -32,20 +32,30 @@ public class TreeHeightMain {
 			CommonTestCaseFileReader cr = new CommonTestCaseFileReader(testDir, testCaseSize);
 			while(cr.hasMoreFiles()){
 				reader = cr.getNextFileReader();
-				int row = 1;
-				int nodesCount = 0;
-				String[] inputs = null;
-				while((text = reader.readLine()) != null){
-					if(row == 1){
-						nodesCount = Integer.parseInt(text);
-						inputs = new String[nodesCount];
-					}else{
-						Map map = th.buildTree(inputs, text);
-					}
-					row++;
-				}
+				th.readOneTestScenario(reader);
 				reader.close();
 			}
+		}
+		
+		th.printTree();
+	}
+	
+	public void readOneTestScenario(BufferedReader reader) throws NumberFormatException, IOException{
+		int row = 1;
+		int nodesCount = 0;
+		String[] inputs = null;
+		text = reader.readLine();
+		while(true){
+			if(row == 1){
+				nodesCount = Integer.parseInt(text);
+				inputs = new String[nodesCount];
+			}else{
+				Map map = buildTree(inputs, text);
+			}
+			row++;
+			text = reader.readLine();
+			if(text == null) break;
+			if(text.trim().equals("")) break;
 		}
 	}
 	
@@ -74,5 +84,28 @@ public class TreeHeightMain {
 		}
 		return nodeMap;
 	}
+	
+	public void printTree(){
+		Queue<TreeNode> queue = new ConcurrentLinkedQueue<TreeNode>();
+		queue.add(rootNode);
+		printLevel(queue, 1);
+	}
+	
+	private void printLevel(Queue<TreeNode> queue, int levelCount){
+		int nextLevelCount = 0;
+		for(int i = 0; i < levelCount; i++){
+			TreeNode item = queue.poll();
+			System.out.print(item + "\t");
+			nextLevelCount += item.getChilds().size();
+			if(item.getChilds().size() != 0){
+				queue.addAll(item.getChilds());
+			}
+		}
+		System.out.println("\n");
+		if(!queue.isEmpty()){
+			printLevel(queue, nextLevelCount);
+		}			
+	}
+	
 	
 }

@@ -1,9 +1,9 @@
 package org.coursera.dataStructure.progAssign1.treeHeightProblem;
 
-import java.util.List;
+import java.util.HashSet;
 import java.util.Set;
 
-public class TreeNode {
+public class TreeNode implements Comparable<TreeNode>{
 	
 	TreeNode parent;
 	Set<TreeNode> childs;
@@ -11,6 +11,7 @@ public class TreeNode {
 	
 	public TreeNode(int index){
 		this.vertice = index;
+		childs = new HashSet<TreeNode>();
 	}
 	
 	/**
@@ -68,6 +69,19 @@ public class TreeNode {
 		if (vertice != other.vertice)
 			return false;
 		return true;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return vertice+"";
+	}
+
+	@Override
+	public int compareTo(TreeNode o) {
+		return 0;
 	}
 	
 	
