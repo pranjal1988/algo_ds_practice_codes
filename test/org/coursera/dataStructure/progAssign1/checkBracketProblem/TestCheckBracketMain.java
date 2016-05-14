@@ -3,9 +3,9 @@ package org.coursera.dataStructure.progAssign1.checkBracketProblem;
 import static org.junit.Assert.*;
 
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
 
+import org.coursera.dataStructure.progAssign1.CommonTestCaseFileReader;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -13,6 +13,8 @@ public class TestCheckBracketMain {
 	int testCaseCount;
 	String testDir;
 	CheckBracketMain ck;
+	BufferedReader testCaseReader;
+	BufferedReader testResultReader;
 	
 	@Before
 	public void setup(){
@@ -23,16 +25,17 @@ public class TestCheckBracketMain {
 
 	@Test
 	public void testdoBracketChecking() throws IOException {
-		for(int i = 1; i <= testCaseCount; i++){
-			System.out.println(i + ") : - ");
-			String testCaseFile = testDir+"" + String.format("%02d", i);
-			String testResultsFile = testDir+"" + String.format("%02d", i) + ".a";
-			BufferedReader testInput = new BufferedReader(new FileReader(testCaseFile));
-			BufferedReader testResult = new BufferedReader(new FileReader(testResultsFile));
-			String text = testInput.readLine();
-			String expectedResult = testResult.readLine();
+		CommonTestCaseFileReader testInputFileReader = new CommonTestCaseFileReader(testDir, testCaseCount);
+		CommonTestCaseFileReader testResultFileReader = new CommonTestCaseFileReader(testDir, testCaseCount , ".a");
+		while(testInputFileReader.hasMoreFiles() && testResultFileReader.hasMoreFiles()){
+			testCaseReader = testInputFileReader.getNextFileReader();
+			testResultReader = testResultFileReader.getNextFileReader();
+			String text = testCaseReader.readLine();
+			String expectedResult = testResultReader.readLine();
 			String output = ck.doBracketChecking(text);
 			assertEquals(expectedResult, output);
+			testCaseReader.close();
+			testResultReader.close();
 		}
 	}
 

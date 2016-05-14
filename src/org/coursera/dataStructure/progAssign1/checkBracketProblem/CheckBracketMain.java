@@ -3,35 +3,40 @@ package org.coursera.dataStructure.progAssign1.checkBracketProblem;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.text.NumberFormat;
 import java.util.Stack;
+
+import org.coursera.dataStructure.progAssign1.CommonTestCaseFileReader;
 
 public class CheckBracketMain {
 
 	public static void main(String[] args) throws IOException {
 		CheckBracketMain ck = new CheckBracketMain();
 		InputStreamReader input_stream = new InputStreamReader(System.in);
-        BufferedReader reader = new BufferedReader(input_stream);
-        String text = reader.readLine();
+		BufferedReader reader = new BufferedReader(input_stream);
+		String text = reader.readLine();
 		if(!text.equals("file")){
 			while((text=reader.readLine()) != null){
 				System.out.println(ck.doBracketChecking(text));
 			}
-			
+			reader.close();
+			input_stream.close();
 		}else{
 			int testCaseSize = Integer.parseInt(reader.readLine());
+			reader.close();
 			String testDir = "E:\\Coursera_Working_Directory\\DataStructure\\assignment1\\Starters PA1\\check_brackets_in_code\\tests\\";
-			for(int i = 1; i <= testCaseSize; i++){
-				reader = new BufferedReader(new FileReader(testDir+"" + String.format("%02d", i)));
-				text = reader.readLine();
-				System.out.println(ck.doBracketChecking(text));
-			}	
+			CommonTestCaseFileReader cr = new CommonTestCaseFileReader(testDir, testCaseSize);
+			while(cr.hasMoreFiles()){
+				reader = cr.getNextFileReader();
+				while((text = reader.readLine()) != null){
+					System.out.println(ck.doBracketChecking(text));	
+				}
+				reader.close();
+			}
 		}
-		
+
 	}
-	
+
 	public String doBracketChecking(final String inputText){
 		String output;
 		boolean success = true;
