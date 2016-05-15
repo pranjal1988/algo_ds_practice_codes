@@ -8,12 +8,51 @@ public class TreeNode implements Comparable<TreeNode>{
 	TreeNode parent;
 	Set<TreeNode> childs;
 	int vertice;
+	int height;
 	
 	public TreeNode(int index){
 		this.vertice = index;
 		childs = new HashSet<TreeNode>();
 	}
 	
+	
+	
+	/**
+	 * @return the vertice
+	 */
+	public int getVertice() {
+		return vertice;
+	}
+
+
+
+	/**
+	 * @param vertice the vertice to set
+	 */
+	public void setVertice(int vertice) {
+		this.vertice = vertice;
+	}
+
+
+
+	/**
+	 * @return the height
+	 */
+	public int getHeight() {
+		return height;
+	}
+
+
+
+	/**
+	 * @param height the height to set
+	 */
+	public void setHeight(int height) {
+		this.height = height;
+	}
+
+
+
 	/**
 	 * @return the parent
 	 */
@@ -76,7 +115,7 @@ public class TreeNode implements Comparable<TreeNode>{
 	 */
 	@Override
 	public String toString() {
-		return vertice+"";
+		return vertice+" [h: " + height + "]";
 	}
 
 	@Override
