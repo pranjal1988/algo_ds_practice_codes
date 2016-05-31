@@ -3,10 +3,10 @@ package org.coursera.dataStructure.progAssign1.treeHeightProblem;
 import static org.junit.Assert.*;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStreamReader;
 
-import org.coursera.dataStructure.progAssign1.CommonTestCaseFileReader;
+import org.coursera.dataStructure.CommonTestCaseFileReader;
 import org.coursera.dataStructure.progAssign1.checkBracketProblem.CheckBracketMain;
 import org.junit.Before;
 import org.junit.Test;
@@ -29,6 +29,10 @@ public class TestTree {
 
 	@Test
 	public void testTreeHeight() throws IOException, InterruptedException {
+		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+		/*if(!reader.readLine().equals("1")){
+			return;
+		}*/
 		CommonTestCaseFileReader testInputFileReader = new CommonTestCaseFileReader(testDir, testCaseCount);
 		CommonTestCaseFileReader testResultFileReader = new CommonTestCaseFileReader(testDir, testCaseCount , ".a");
 		int ct = 0;

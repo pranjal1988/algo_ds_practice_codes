@@ -5,7 +5,7 @@ import static org.junit.Assert.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 
-import org.coursera.dataStructure.progAssign1.CommonTestCaseFileReader;
+import org.coursera.dataStructure.CommonTestCaseFileReader;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -27,15 +27,18 @@ public class TestCheckBracketMain {
 	public void testdoBracketChecking() throws IOException {
 		CommonTestCaseFileReader testInputFileReader = new CommonTestCaseFileReader(testDir, testCaseCount);
 		CommonTestCaseFileReader testResultFileReader = new CommonTestCaseFileReader(testDir, testCaseCount , ".a");
+		int ct = 1;
 		while(testInputFileReader.hasMoreFiles() && testResultFileReader.hasMoreFiles()){
 			testCaseReader = testInputFileReader.getNextFileReader();
 			testResultReader = testResultFileReader.getNextFileReader();
 			String text = testCaseReader.readLine();
 			String expectedResult = testResultReader.readLine();
 			String output = ck.doBracketChecking(text);
+			System.out.println(ct + ") Expected : " + expectedResult + " got : " + output);
 			assertEquals(expectedResult, output);
 			testCaseReader.close();
 			testResultReader.close();
+			ct++;
 		}
 	}
 

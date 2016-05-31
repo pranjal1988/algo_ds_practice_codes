@@ -1,4 +1,4 @@
-package org.coursera.dataStructure.progAssign1;
+package org.coursera.dataStructure;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;

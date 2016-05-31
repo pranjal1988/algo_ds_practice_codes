@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Stack;
 
-import org.coursera.dataStructure.progAssign1.CommonTestCaseFileReader;
+import org.coursera.dataStructure.CommonTestCaseFileReader;
 
 public class CheckBracketMain {
 
